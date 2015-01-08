@@ -1,0 +1,58 @@
+{
+	"builders": [
+	{
+		"boot_command": [
+			"<esc><wait>",
+			"install <wait>",
+			"preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+			"debian-installer=en_US <wait>",
+			"auto <wait>",
+			"locale=en_US <wait>",
+			"kbd-chooser/method=us <wait>",
+			"netcfg/get_hostname={{ .Name }} <wait>",
+			"netcfg/get_domain=vagrantup.com <wait>",
+			"fb=false <wait>",
+			"debconf/frontend=noninteractive <wait>",
+			"console-setup/ask_detect=false <wait>",
+			"console-keymaps-at/keymap=us <wait>",
+			"keyboard-configuration/xkb-keymap=us <wait>",
+			"<enter><wait>"
+		],
+		"headless": false,
+		"disk_size": 10140,
+		"guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+		"guest_os_type": "Debian_64",
+		"http_directory": "http",
+		"iso_checksum": "57502e731b81dd243ec3acdc1528601ddcc3e0a7b91934052844b27db16cfea865d1380edfc4da21d60be7fe9997abea6d236baa85ce748b8f6381341d6fd81c",
+		"iso_checksum_type": "sha512",
+		"iso_url": "http://cdimage.debian.org/cdimage/jessie_di_beta_2/amd64/iso-cd/debian-jessie-DI-b2-amd64-netinst.iso",
+		"iso_checksum": "eebd4b1140986592fd1e05f2af8f60241384deb626850f48dd55f7a59bee9e51e5cbf1863e1807aa8d8be2163c854b168966b613517b7db020100a4fe01a301f",
+		"iso_checksum_type": "sha512",
+		"iso_url": "http://cdimage.debian.org/cdimage/jessie_di_beta_1/amd64/iso-cd/debian-jessie-DI-b1-amd64-netinst.iso",
+		"shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
+		"ssh_password": "vagrant",
+		"ssh_port": 22,
+		"ssh_username": "vagrant",
+		"ssh_wait_timeout": "10000s",
+		"type": "virtualbox-iso",
+		"vm_name": "debian-8-amd64",
+		"vboxmanage": [
+			["modifyvm", "{{.Name}}", "--memory", "256"],
+			["modifyvm", "{{.Name}}", "--cpus", "2"]
+		]
+	}],
+	"post-processors": [
+	{
+		"output": "jessie64.box",
+		"type": "vagrant"
+	}],
+	"provisioners": [
+		{
+			"scripts": [
+				"scripts/bootstrap.sh"
+			],
+			"type": "shell",
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+		}
+	]
+}
