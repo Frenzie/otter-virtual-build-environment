@@ -12,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #config.vm.provision :shell, :path => "scripts/bootstrap.sh"
   # Call with: BUILD_DEB_ARGS='-s test' vagrant provision
+  # BUILD_DEB_ARGS='-e "Full Name <email@example.com>"' vagrant provision
   # The single quotes are important.
   config.vm.provision :shell, :path => "scripts/build-otter-deb.sh", args: ENV['BUILD_DEB_ARGS']
 

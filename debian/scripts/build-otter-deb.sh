@@ -103,7 +103,10 @@ fi
 
 DATE=$(date -u +%Y%m%d.%H%M)
 
-OTTER_VERSION_MAIN=$(grep OTTER_VERSION_MAIN CMakeLists.txt | grep -Eo "([0-9].?)*" | grep -Eo "[^\"]*")
+MAJOR_VERSION=$(grep MAJOR_VERSION CMakeLists.txt | grep -Eo "([0-9].?)*" | grep -Eo "[^\"]*")
+MINOR_VERSION=$(grep MINOR_VERSION CMakeLists.txt | grep -Eo "([0-9].?)*" | grep -Eo "[^\"]*")
+PATCH_VERSION=$(grep PATCH_VERSION CMakeLists.txt | grep -Eo "([0-9].?)*" | grep -Eo "[^\"]*")
+OTTER_VERSION_MAIN=${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}
 OTTER_VERSION_CONTEXT=$(grep OTTER_VERSION_CONTEXT CMakeLists.txt | grep -Eo "\"([^\"]*)\"" | grep -Eo "[^\"]*")
 OTTER_GIT_REVISION=$(git rev-parse --short HEAD)
 
