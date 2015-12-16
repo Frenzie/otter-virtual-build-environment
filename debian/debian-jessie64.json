@@ -25,7 +25,7 @@
 		"http_directory": "http",
 		"iso_checksum": "7844a8e84afe7a168a8f893b298d0dd06d869deffc73fef27791a252688a9d2affc6e4f46b2c5db4794054cec84365f2107c012f1025eb85826bb340134932ec",
 		"iso_checksum_type": "sha512",
-		"iso_url": "http://cdimage.debian.org/debian-cd/8.1.0/amd64/iso-cd/debian-8.1.0-amd64-netinst.iso",
+		"iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/8.1.0/amd64/iso-cd/debian-8.1.0-amd64-netinst.iso",
 		"shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
 		"ssh_password": "vagrant",
 		"ssh_port": 22,
