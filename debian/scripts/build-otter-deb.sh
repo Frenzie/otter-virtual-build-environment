@@ -92,13 +92,23 @@ do
 	shift
 done
 
+# Use all CPUs
+export MAKEFLAGS='-j$(nproc)'
+
+# Make sure system is up to date
+sudo apt-get update
+sudo apt-get dist-upgrade -y
+sudo apt-get autoclean
+sudo apt-get autoremove
+
 cd otter-build
 
-if cd otter >/dev/null; then
+# Make sure Otter is present and up to date
+if cd otter-browser >/dev/null; then
 	git pull
 else
-	git clone https://github.com/Emdek/otter.git
-	cd otter
+	git clone https://github.com/OtterBrowser/otter-browser.git
+	cd otter-browser
 fi
 
 DATE=$(date -u +%Y%m%d.%H%M)
@@ -126,7 +136,7 @@ OTTER_BUILD_DIR=otter-browser-${OTTER_VERSION}
 
 cd ..
 
-cp -r otter ${OTTER_BUILD_DIR}
+cp -r otter-browser ${OTTER_BUILD_DIR}
 
 mv ${OTTER_BUILD_DIR}/packaging/debian ${OTTER_BUILD_DIR}/debian
 #rm -r ${OTTER_BUILD_DIR}/packaging
@@ -146,7 +156,7 @@ cd ..
 
 # create source tarballs
 tar cfJ otter-browser_${OTTER_VERSION_DEBIAN}.debian.tar.xz -C ${OTTER_BUILD_DIR} debian
-tar cfJ otter-browser_${OTTER_VERSION}.orig.tar.xz ${OTTER_BUILD_DIR}
+tar cfJ otter-browser_${OTTER_VERSION}.orig.tar.xz ${OTTER_BUILD_DIR} --exclude .git
 
 cd ${OTTER_BUILD_DIR}
 
@@ -156,3 +166,6 @@ debuild -us -uc
 # signed build
 #debuild -S
 
+# build i386 package
+sudo sbuild-update -udcar stable-i386
+sbuild -d stable --arch=i386

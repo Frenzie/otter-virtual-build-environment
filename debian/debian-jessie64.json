@@ -34,7 +34,7 @@
 		"type": "virtualbox-iso",
 		"vm_name": "debian-8-amd64",
 		"vboxmanage": [
-			["modifyvm", "{{.Name}}", "--memory", "256"],
+			["modifyvm", "{{.Name}}", "--memory", "1024"],
 			["modifyvm", "{{.Name}}", "--cpus", "2"]
 		]
 	}],
