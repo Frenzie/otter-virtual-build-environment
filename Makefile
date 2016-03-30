@@ -22,5 +22,5 @@ packer:
 	fi
 	@cd /usr/local/bin && \
 	wget --continue --output-document=/tmp/packer.zip \
-		https://dl.bintray.com/mitchellh/packer/packer_0.7.5_linux_amd64.zip && \
+		https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip && \
 	unzip /tmp/packer.zip
