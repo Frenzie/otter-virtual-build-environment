@@ -5,9 +5,8 @@ all: clean build up
 jessie32 jessie64:
 	@cd debian && \
 	packer build debian-$@.json && \
-	vagrant box remove $@.box ; \
-	vagrant box add $@.box && \
-	vagrant up $@
+	vagrant box add --name $@ --force $@.box && \
+	vagrant up
 
 up:
 	vagrant destroy -f && vagrant box remove vagrant_machine && vagrant up || vagrant box remove vagrant_machine && vagrant up || vagrant up
