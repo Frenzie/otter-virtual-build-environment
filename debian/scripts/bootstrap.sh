@@ -30,11 +30,3 @@ echo "GSSAPIAuthentication no" >> /etc/ssh/sshd_config
 sed -i 's/GRUB_TIMEOUT=[0-9]\{,2\}/GRUB_TIMEOUT=0/' /etc/default/grub
 
 update-grub
-
-# set up sbuild for i386 package
-mkdir /root/.gnupg  #Work around #792100 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=792100
-rngd -r /dev/urandom #Fake entropy for the keygen; REMOVE if key security is important
-su - -c 'sbuild-update --keygen' #Requirement for sbuild
-sbuild-adduser vagrant
-mkdir /home/vagrant/chroot
-sbuild-createchroot --arch=i386 stable /home/vagrant/chroot/stable-i386 http://httpredir.debian.org/debian

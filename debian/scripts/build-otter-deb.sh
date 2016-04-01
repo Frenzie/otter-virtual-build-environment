@@ -166,6 +166,17 @@ debuild -us -uc
 # signed build
 #debuild -S
 
+# check if chroot exists and create it if it does not
+if [ ! -f "${HOME}/chroot/stable-i386.tar" ]; then
+	sudo mkdir /root/.gnupg # To work around #792100
+	sudo rngd -r /dev/urandom #Fake entropy for the keygen; REMOVE if key security is important
+	sudo sbuild-update --keygen #Requirement for sbuild
+	sudo sbuild-adduser $LOGNAME
+	newgrp sbuild
+	mkdir $HOME/chroot
+	sudo sbuild-createchroot --arch=i386 --make-sbuild-tarball=$HOME/chroot/stable-i386.tar stable `mktemp -d` http://httpredir.debian.org/debian
+fi
+
 # build i386 package
 sudo sbuild-update -udcar stable-i386
 sbuild -d stable --arch=i386
